@@ -1,0 +1,51 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+
+\usepackage{blindtext}
+\usepackage{preamble}
+
+%\linespread{1.15}
+\addbibresource{references.bib}  % package biblatex: Specify the path to your .bib file
+\pdfminorversion=7 % package pdfpages: allow more recent pdfs
+
+% To compile only part
+% \includeonly{src/def_e_inc/def_e_inc}
+
+% -----------------------------------------------------------------
+
+% Begin Document
+\begin{document}
+   \pagenumbering{roman}  % Set page numbering to Roman numerals for the front matter
+   \setcounter{secnumdepth}{0} % Sections don't have numbering in the frontmatter
+
+   \input{src/cover}
+   \input{src/abstract.tex}
+
+   % \newpage % use new page when a chapter is over, use pagebreak when a chapter isn't over
+   % \tableofcontents 
+   % \listoffigures
+   % \listoftables
+
+   % -------------------------------------------------------------------
+
+   \setcounter{secnumdepth}{3} % Sections have numbering again up to the subsub section
+   \pagenumbering{arabic} % Change the numbering for the mainmatter
+
+   \input{src/introduction}
+   \input{src/drawbacksOfCurrentSystem}
+   \input{src/alternativeSystems}
+   \input{src/probabilities}
+   \input{src/technicalConcerns}
+   \input{src/conclusion}
+
+   \printbibliography
+
+   \appendix
+
+\end{document}

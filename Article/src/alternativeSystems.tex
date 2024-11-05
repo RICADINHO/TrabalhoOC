@@ -1,0 +1,60 @@
+\section{Alternative representative systems}\label{sec:implementation}
+
+   \subsection{Integration Between OutSystems and MongoDB}\label{subsec:outsystems-mongodb}
+
+   In this implementation, we utilized Integration Builder within OutSystems to seamlessly connect and retrieve data from a MongoDB database. The process involved the following steps:
+
+   1. \textbf{Set Up MongoDB Connection:}
+      \begin{itemize}
+         \item Integrated MongoDB Atlas, a cloud-based MongoDB service, and utilized MongoDB Compass, a desktop tool, for exploring and testing data.
+         \item Configured the connection to MongoDB in Integration Builder, providing the necessary details such as connection string, authentication, and database selection.
+      \end{itemize}
+
+   2. \textbf{Create Integration Module:}
+      \begin{itemize}
+         \item Developed a new integration module named "mongodb\_movies\_connector" with associated actions for data retrieval.
+      \end{itemize}
+
+   3. \textbf{Fetch Data in OutSystems App:}
+      \begin{itemize}
+         \item Built a reactive web app in OutSystems named "movies\_app" with a main screen named "movies."
+         \item Utilized Integration Builder's actions to fetch data from MongoDB, specifically retrieving movie details.
+      \end{itemize}
+
+   4. \textbf{Displaying Data in a Gallery:}
+      \begin{itemize}
+         \item Implemented a gallery view using OutSystems UI widgets to display movie information.
+         \item Ensured consistency in poster sizes and filtered out movies without poster URLs.
+      \end{itemize}
+
+   5. \textbf{Enhancing UI for Movie Details:}
+      \begin{itemize}
+         \item Created a detailed view ("movie\_details") for individual movies, using a flip content widget to display additional information on the back.
+         \item Retrieved specific movie details based on the selected movie ID.
+      \end{itemize}
+
+   6. \textbf{Finalizing UI Styling:}
+      \begin{itemize}
+         \item Fine-tuned the UI by adjusting font sizes, alignments, and other styling details for a more user-friendly experience.
+      \end{itemize}
+
+   7. \textbf{Filtering Data:}
+      \begin{itemize}
+         \item Implemented filtering options in MongoDB Compass to exclude movies older than a specified year.
+         \item Applied the same filter in Integration Builder to refine the data retrieved by OutSystems.
+      \end{itemize}
+
+   8. \textbf{Testing and Publishing:}
+      \begin{itemize}
+         \item Periodically published the OutSystems app to ensure changes and improvements were reflected.
+         \item Tested the application in a web browser to verify the gallery view and individual movie details.
+      \end{itemize}
+
+   9. \textbf{Conclusion:}
+      \begin{itemize}
+         \item Highlighted the ease of integration provided by Integration Builder for MongoDB, emphasizing its role in simplifying the development process and enhancing overall efficiency.
+      \end{itemize}
+
+   \subsection{Integration Between OutSystems and Azure}\label{subsec:outsystems-azure}
+
+   % Your content for the integration between OutSystems and Azure would go here.
