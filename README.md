@@ -1,5 +1,7 @@
 # TrabalhoOC
 
-pdf 145 Pass/Fail do VHT
-pdf 118 ilustraçao fixe
-pdf 4 tablea
+Definição do problema:
+Problema da Mochila, 3 problemas de minimização: 
+- minimizar os KG dos objetos na mochila.
+- minimizar o volume vazio dentro da mochila.
+- maximizar a utilidade dos objetos dentro da mochila.
