@@ -1,6 +1,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/latex,linux,windows,vim,visualstudio,visualstudiocode,macos,python,pythonvanilla,venv,circuitpython,intellij,emacs,direnv,jupyternotebooks,chocolatey
 # Edit at https://www.toptal.com/developers/gitignore?templates=latex,linux,windows,vim,visualstudio,visualstudiocode,macos,python,pythonvanilla,venv,circuitpython,intellij,emacs,direnv,jupyternotebooks,chocolatey
 
+*sync-conflict*
+
 ### direnv ###
 .direnv
 
