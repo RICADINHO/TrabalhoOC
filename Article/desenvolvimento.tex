@@ -1,0 +1,140 @@
+\chapter{Desenvolvimento}
+\label{chap:dev}
+
+
+% BOTTOM-UP APPROACH BOTTOM-UP APPROACH BOTTOM-UP APPROACH BOTTOM-UP APPROACH BOTTOM-UP APPROACH BOTTOM-UP APPROACH BOTTOM-UP APPROACH BOTTOM-UP APPROACH BOTTOM-UP APPROACH BOTTOM-UP APPROACH BOTTOM-UP APPROACH BOTTOM-UP APPROACH 
+\section{\textit{Bottom-UP Approach}}
+
+Utilizando o \textit{Bottom-UP Approach}\cite{Bottom-UP}, construímos uma tabela em que cada célula \( m[i][k] \) representa o valor máximo que pode ser obtido usando os primeiros \( i \) objetos e uma capacidade de mochila de \( k \).
+
+Abaixo está um exemplo da tabela de programação dinâmica para uma mochila de capacidade \( 7 \) e 5 objetos:
+
+
+\begin{center} 
+$
+\begin{array}{c|cccccccc}
+ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+\hline
+\text{Empty} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+v_1=2, w_1=3 & 0 & 0 & 0 & 2 & 2 & 2 & 2 & 2 \\
+v_2=2, w_2=1 & 0 & 2 & 2 & 2 & 4 & 4 & 4 & 4 \\
+v_3=4, w_3=3 & 0 & 2 & 2 & 4 & 6 & 6 & 6 & 8 \\
+v_4=5, w_4=4 & 0 & 2 & 2 & 4 & 6 & 7 & 7 & 9 \\
+v_5=3, w_5=2 & 0 & 2 & 3 & 5 & 6 & 7 & 9 & 10 \\
+\end{array}
+$
+\end{center}
+
+
+\begin{itemize}
+    \item \textbf{Cálculo linha a linha:}
+    Cada linha subsequente representa a inclusão de um novo objeto \( i \), com valor \( v_i \) e peso \( w_i \). O valor de \( m[i][k] \) é determinado da seguinte forma:
+    \begin{itemize}
+        \item \textbf{Caso 1: O objeto \( i \) não está incluído.}
+        Se \( w_i > k \), o objeto não pode ser incluído e herdamos o valor da linha anterior:
+        \[
+        m[i][k] = m[i-1][k]
+        \]
+        \item \textbf{Caso 2: O objeto \( i \) está incluído.}
+        Se \( w_i \leq k \), consideramos duas possibilidades:
+        \begin{itemize}
+            \item Excluir objeto \( i \), resultando no valor \( m[i-1][k] \).
+            \item Incluir o objeto \( i \), adicionando o seu valor \( v_i \) ao valor máximo que se pode obter com a capacidade restante \( k-w_i \):
+            \[
+            m[i][k] = v_i + m[i-1][k-w_i]
+            \]
+        \end{itemize}
+        O valor final é o máximo destas duas opções.
+    \end{itemize}
+\end{itemize}
+
+% SIMULATED ANNEALING SIMULATED ANNEALING SIMULATED ANNEALING SIMULATED ANNEALING SIMULATED ANNEALING SIMULATED ANNEALING SIMULATED ANNEALING SIMULATED ANNEALING SIMULATED ANNEALING SIMULATED ANNEALING SIMULATED ANNEALING SIMULATED ANNEALING SIMULATED ANNEALING SIMULATED ANNEALING 
+\section{\textit{Simulated Annealing}}
+
+\subsection{Análise do Problema}
+
+O \textit{Simulated Annealing}\cite{Annealing} é um algoritmo de otimização que é inspirado pelo processo de \textit{annealing} de metais. Onde é feito o aquecimento dos metais a temperaturas elevadíssimas durante um período fixo de tempo para depois ser arrefecido lentamente para remover defeitos, isto torna o metal mais resistente, maleável, flexível, etc., sendo que o tempo e condições do processo de arrefecimento dependem de metal para metal.\cite{annealing2}
+
+No caso deste trabalho o \textit{Simulated Annealing} é utilizado de forma semelhante, este tenta encontrar a melhor solução através de uma exploração dos dados durante o período de "arrefecimento" para tentar encontrar o melhor, enquanto apresenta "temperaturas" elevadas este método tem uma maior hipótese de optar por explorar mais os dados mesmo se tiver de escolher soluções piores, e enquanto a "temperatura" desce a probabilidade de este explorar mais os dados vai diminuindo, o que permite que o algoritmo se foque mais nos melhores resultados que encontra.
+
+
+
+\subsection{Análise da resolução}
+
+O algoritmo começa com a declaração de todas as variáveis iniciais, que neste caso são: A capacidade da mochila, o valor de cada objeto, o peso da cada objeto, o número de objetos, a temperatura inicial, a taxa de arrefecimento e o número de iterações, após isso é criada a solução atual, que é uma solução aleatória ao problema, e a melhor solução, que como está no início do algoritmo, vai ser uma cópia da solução atual. 
+
+Depois disso começa o algoritmo em si, e como referido anteriormente, este algoritmo funciona com base na temperatura, grande parte da exploração deste método vem da frequência e intensidade com que a temperatura desce, no caso deste trabalho a função de arrefecimento da temperatura por foi declarada da seguinte forma para uma melhor adaptação à realidade:
+
+\begin{mycapequ}[!ht]
+\begin{equation}
+\label{f:temp}
+    Temperatura = Temperatura \cdot TaxaArrefecimento
+\end{equation}
+  \caption{Função para calcular a temperatura.}
+\end{mycapequ}
+
+Onde a cada iteração a temperatura é reduzida para uma percentagem dela, sendo que essa percentagem está sempre entre 95\% e 99\%. Para assim o algoritmo conseguir ter bastantes oportunidades de fazer uma ampla procura no início do programa e no fim focar-se nos melhores valores. 
+
+Depois do arrefecimento da temperatura é calculado o vizinho, onde este é apenas uma cópia da solução temporária com apenas um dos seus objetos trocados, após a sua declaração calculamos o seu valor através da função apresentada em \ref{f:objetivo}. Como o objetivo deste problema é maximizar o benefício total de cada objeto sem que o seu peso total ultrapasse a capacidade da mochila, calculamos o benefício e o peso total de todos os objetos do vizinho, se o peso total for maior que a capacidade da mochila o vizinho é penalizado com uma avaliação negativa do seu benefício, se os pesos não ultrapassarem a capacidade da mochila é calculado o benefício total dos seus objetos para comparação futura.
+
+\begin{mycapequ}[!ht]
+\begin{equation}
+\label{f:objetivo}
+ \begin{cases}
+      \sum_{i=1}^{n} x_i \cdot v_i & \text{, se $\sum_{i=1}^{n} x_i \cdot w_i$ < $W$}\\
+      -1 & \text{, se $\sum_{i=1}^{n} x_i \cdot w_i$ > $W$}\\
+\end{cases}
+\end{equation}
+  \caption{Função objetivo, onde $n$ é o número de objetos, $x_i$ o valor binário do objeto, $v_i$ o benefício do objeto, $w_i$ o peso do objeto e $W$ a capacidade da mochila.}
+\end{mycapequ}
+
+Após o cálculo do benefício do vizinho é feito o cálculo da probabilidade de aceitação, demonstrado na equação \ref{f:prob}, este calculo é feito para permitir que o algoritmo possa aceitar soluções piores que a atual para o propósito de melhorar a sua procura no espaço do conjunto dos dados. Este cálculo depende muito da temperatura atual, uma vez que quando a temperatura é maior a probabilidade de aceitação é maior.
+
+\begin{mycapequ}[!ht]
+\begin{equation}
+\label{f:prob}
+ \begin{cases}
+      \min\bigl( 1,\exp(\frac{ValorVizinho - ValorAtual}{Temperatura}) \bigl) & \text{, se $temperatura < 0.01$}\\
+      0 & \text{, se $temperatura < 0.01$}
+\end{cases} 
+\end{equation}
+\caption{Função para calcular a probabilidade de aceitação.}
+\end{mycapequ}
+
+No final é verificado se o benefício do vizinho é maior que o benefício da solução atual e é gerado um número aleatório para comparar com a probabilidade de aceitação, se o benefício do vizinho for maior e/ou a probabilidade de aceitação for maior que o número aleatório, a solução atual toma o valor do vizinho e é verificado se este é maior que a melhor solução obtida, se sim, a melhor solução toma o valor do vizinho e o programa continua até concluir todas as iterações.
+
+
+% TABU SEARCH TABU SEARCH TABU SEARCH TABU SEARCH TABU SEARCH TABU SEARCH TABU SEARCH TABU SEARCH TABU SEARCH TABU SEARCH TABU SEARCH TABU SEARCH TABU SEARCH TABU SEARCH TABU SEARCH TABU SEARCH TABU SEARCH TABU SEARCH TABU SEARCH TABU SEARCH TABU SEARCH TABU SEARCH TABU SEARCH TABU SEARCH 
+\section{\textit{Tabu Search} }
+
+\subsection{Análise do Problema}
+
+O \textit{Tabu Search}\cite{Tabu} é um algoritmo de otimização que utiliza busca de vizinhos e uma lista tabu para evitar que a busca revisite soluções já exploradas. Este é um método com inspiração na necessidade de balançar \textit{exploitation vs exploration} em grandes espaços de busca, permitindo o escape de mínimos locais e indo ao encontro de candidatos a mínimos globais ao longo do processo. A lista tabu armazena movimentos proibidos temporariamente, garantindo que o algoritmo explore novas áreas do espaço de soluções.
+
+\subsection{Solução Proposta}
+
+Da mesma forma, o algoritmo inicia com a declaração de variáveis como a capacidade da mochila, os valores e pesos dos objetos, o número total de objetos, o tamanho da lista tabu(como um fator do número de objetos) e o número de iterações, até parar. A solução inicial é gerada aleatoriamente, e o algoritmo começa com a solução atual e a melhor solução sendo iguais a essa solução inicial.
+
+A função objetivo utilizada para avaliar cada solução é representada pela equação \ref{f:objetivo2}. Nesta função, o objetivo é maximizar o benefício total dos objetos selecionados, penalizando soluções onde o peso total ultrapasse a capacidade da mochila.
+
+\begin{mycapequ}[!ht]
+\begin{equation}
+\label{f:objetivo2}
+    \sum_{i=1}^{n} (v_i \cdot x_i) \cdot \left[1 - \max\left(0, \sum_{i=1}^{n} (w_i \cdot x_i) - W\right)\right]
+\end{equation}
+\caption{Função objetivo, onde $n$ é o número de objetos, $x_i$ é o valor binário do objeto, $v_i$ o benefício do objeto, $w_i$ o peso do objeto e $W$ a capacidade da mochila.}
+\end{mycapequ}
+
+O algoritmo gera a partir da primeira solução aleatória vários vizinhos que diferem da última iteração em apenas uma alteração binária, caso um vizinho não pertença à lista tabu, é considerado como solução candidata, cada candidato é avaliado com base na função objetivo, o melhor é encontrado e o processo continua da mesma forma com esse encontrado.
+
+Inicialmente utilizávamos todos os vizinhos possíveis, mas usar apenas uma pequena amostra dos vizinhos torna o algoritmo muito mais eficiente.
+% na secção \ref{n_vizinhos_otimo} falamos em mais detalhe sobre o número ótimo de vizinhos a serem utilizados.
+
+Em cada iteração, o melhor vizinho é selecionado entre as soluções candidatas, e a solução atual é atualizada. Se a solução atual tiver um valor maior que a melhor solução registada até o momento, esta também é atualizada. A lista tabu é ajustada dinamicamente: novas soluções são adicionadas, e as mais antigas são removidas quando o tamanho máximo da lista é atingido.
+
+Ao longo das iterações, o algoritmo mantém o registo do valor da solução atual, da melhor solução encontrada e da média das soluções na lista tabu, para fins de análise. O processo continua até atingir o número máximo de iterações, quando retorna a melhor solução encontrada.
+
+Este processo assegura que o algoritmo realiza uma procura eficaz e eficiente no espaço de soluções, explorando diferentes regiões e evitando voltar a soluções já exploradas.
+
+
+

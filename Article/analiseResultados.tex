@@ -1,0 +1,54 @@
+
+% COMPARACAO DOS DADOS COMPARACAO DOS DADOS COMPARACAO DOS DADOS COMPARACAO DOS DADOS COMPARACAO DOS DADOS COMPARACAO DOS DADOS COMPARACAO DOS DADOS COMPARACAO DOS DADOS COMPARACAO DOS DADOS COMPARACAO DOS DADOS COMPARACAO DOS DADOS COMPARACAO DOS DADOS COMPARACAO DOS DADOS COMPARACAO DOS DADOS 
+%\section{Comparação dos Dados}
+\chapter{Análise dos Dados}
+
+%\section{Número de Vizinhos Ótimo no Problema \textit{Tabu}}\label{n_vizinhos_otimo}
+
+%\section{Análise de Problema e Valores Ótimos}
+
+%Para cada tamanho de dados diferente haverá um valor ótimo de iterações, ou temperatura (no caso do \textit{Annealing}) ou número de vizinhos a usar (no caso do \textit{Tabu}). 
+
+%O número de iterações pode ser estimado usando o tamanho do problema:
+%\[
+%I = \alpha \cdot n
+%\]
+
+%Onde:
+%\begin{itemize}
+%    \item \( n \) é o número de objetos.
+%    \item \( \alpha \) é uma constante a ser determinada experimentalmente que normalmente está entre \( 5 \) para problemas mais pequenos a \( 50 \) para problemas maiores.
+%\end{itemize}
+
+\section{Resultados}
+
+Após a implementação de todos os métodos foram testadas as suas eficiências e eficácias em vários conjuntos de dados, o que é demonstrado na tabela \ref{tab:results}, onde a coluna Tempo é o tempo de execução de cada algoritmo dependendo do conjunto de dados, e a coluna Derivação é a diferença entre o melhor resultado possível e o resultado obtido pelo algoritmo em questão.
+
+\begin{table}[h!]
+\label{tabela}
+\centering
+\begin{tabular}{|c|c|c|c||c|c|c|}
+\hline
+\multicolumn{1}{|c|}{\textbf{}} & \multicolumn{3}{c||}{\textbf{Tempo (ms)}} & \multicolumn{3}{c|}{\textbf{Derivação}} \\ \hline
+\textbf{} & \textbf{M} & \textbf{S.A.} & \textbf{T.S.} & \textbf{M} & \textbf{S.A.} & \textbf{T.S.} \\ \hline
+\textbf{pequeno} & 0.0008 & 0.0005 & 0.0020 & 0 & -40.7 & -21.0 \\ \hline
+\textbf{médio} & 0.0493 & 0.0109 & 0.0055 & 0 & -355.1 & -184.9 \\ \hline
+\textbf{grande} & 5.7584 & 0.6964 & 0.8876 & 0 & -1243.9 & -846.2 \\ \hline
+\textbf{gigante} & 21.796 & 18.451 & 9.2404 & 0 & -1768.6 & -1004.56 \\ \hline
+\end{tabular}
+\caption{Tempo de execução e desvio ao resultado dos vários métodos}
+\label{tab:results}
+\end{table}
+
+A tabela \ref{tab:results} apresenta todos os métodos utilizados neste trabalho, o \textit{Bottom-UP Approach}, \textbf{M}, o \textit{Simulated Annealing}, \textbf{S.A.} e o \textit{Tabu Search}, \textbf{T.S.}. Estes métodos são comparados pelo seu desempenho em vários conjuntos de dados.
+
+O conjunto pequeno, que são dados correspondentes a uma mochila com capacidade 50, 12 objetos com benefícios entre 10 e 60 e pesos entre 3 e 30. Ao observar a tabela podemos concluir que para um conjunto de dados pequeno o \textit{Tabu search} é ligeiramente pior em termos de tempo de execução, mas melhor em resultados, no entanto, como o \textit{Bottom-Up} dá sempre o melhor resultado, faz mais sentido utilizar este método para conjuntos de dados pequenos.
+
+Para conjuntos de dados médios, mochila com capacidade de 900, 50 objetos com benefícios entre 10 e 150 e pesos entre 1 e 50. Podemos observar que a complexidade do \textit{Bottom-Up} está a começar a mostrar-se, com o pior tempo de execução, em termos de resultados este continua a ser o melhor, e como a quantidade de dados aumentou o \textit{Tabu} e o \textit{Annealing} têm uma maior derivação do valor máximo. Mas à semelhança dos outros dados, ainda é preferível usar o \textit{Bottom-Up}, pois este dá sempre o melhor resultado em tempo aceitável.
+
+Para o próximo conjunto de dados foi utilizada uma mochila com capacidade 11000, 500 objetos com benefícios entre 10 e 150 e pesos entre 1 e 50, agora sim dá para ver a complexidade do \textit{Bottom-Up}, com quase 5.7 segundos de tempo de execução comparados aos 0.7 e 0.9 segundos dos outros métodos, sendo que as derivações dos resultados continuam com o mesmo padrão. A partir deste ponto o \textit{Bottom-Up} para de ser o melhor método para a pesquisa, sendo agora o \textit{Tabu} a escolha ideal.
+
+
+Para concluir temos o último conjunto de dados onde a mochila tem capacidade 20000, com 1000 objetos com benefícios entre 10 e 150 e pesos entre 1 e 50. Podemos observar o mesmo padrão que observamos no conjunto anterior, contudo agora o \textit{Annealing} também sofre com a quantidade de dados utilizados, com um tempo de execução impressionante de 18.4 segundos, quase tanto quanto o \textit{Bottom-Up}. Em termos de resultados, todos os algoritmos continuam com o mesmo padrão.
+
+Ao fim da análise desta tabela podemos claramente concluir que o \textit{Tabu search} é o melhor algoritmos em termos de tempo de execução comparado a resultados, no entanto, só será útil ser utilizado com grades conjuntos de dados, pois em conjuntos pequenos o \textit{Bottom-Up}, apesar de ser mais demorado, devolve melhores resultados.
